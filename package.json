@@ -14,6 +14,7 @@
     "dev": "node ./script/dev.js",
     "build": "yarn convert-medias && yarn convert-video && next build",
     "publish": "yarn convert-medias && yarn convert-video && next build && yarn zip",
+    "test": "next build",
     "analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "lint": "next lint"
