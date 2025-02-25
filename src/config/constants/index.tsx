@@ -1,11 +1,6 @@
 export default {
   data: {
-    navigation: [
-      { title: "Home", href: "/" },
-      { title: "Dienstleistungen", href: "/dienstleistungen" },
-      { title: "Portfolio", href: "/portfolio" },
-      { title: "Kontakt", href: "/kontakt" },
-    ],
+    navigation: [{ title: "Home", href: "/" }],
     contact: [
       {
         text: "Telefon",
