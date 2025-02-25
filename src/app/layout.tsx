@@ -8,6 +8,8 @@ import { StyledComponentsRegistry } from "@/config/lib/registry";
 import { theme } from "@/config/styles/theme";
 import { GlobalStyles } from "@/config/styles/global";
 import { GSAPInitializer } from "@/components/atoms/gsap-initializer";
+import { Cursor } from "@/components/atoms/cursor";
+import { SmoothScroll } from "@/components/atoms/smooth-scroll";
 
 const RootLayout = ({
   children,
@@ -26,10 +28,13 @@ const RootLayout = ({
             <GlobalStyles />
             <GSAPInitializer />
             <main>
-              <Suspense>{children}</Suspense>
+              <Suspense>
+                <Cursor>{children}</Cursor>
+              </Suspense>
             </main>
           </ThemeProvider>
         </StyledComponentsRegistry>
+        <SmoothScroll />
       </body>
 
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || "G-XYZ"} />

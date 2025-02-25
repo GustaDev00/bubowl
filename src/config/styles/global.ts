@@ -52,7 +52,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background: #151515;
+    background: #050505;
     position: relative;
   }
 

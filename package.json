@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate",
+  "name": "bubowl",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -21,7 +21,10 @@
   "dependencies": {
     "@next/bundle-analyzer": "^15.1.4",
     "@next/third-parties": "^15.1.4",
+    "@react-spring/web": "^9.7.5",
+    "@studio-freight/lenis": "^1.0.42",
     "axios": "^1.7.7",
+    "cobe": "^0.6.3",
     "dotenv": "^16.4.5",
     "ffmpeg-static": "^5.2.0",
     "formik": "^2.4.6",
