@@ -48,7 +48,7 @@ export default () => {
     return () => {
       globe.destroy();
     };
-  }, []);
+  }, [r]);
 
   return { canvasRef, pointerInteracting, pointerInteractionMovement, api };
 };
