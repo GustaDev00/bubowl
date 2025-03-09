@@ -6,7 +6,7 @@ const { desktop1024, isMobileOrTabletVertical, desktop1920 } = viewportsBase;
 
 export const GlobalStyles = createGlobalStyle`
   * {
-    font-family: var(--hankengrotesk);
+    font-family: var(--poppins);
     box-sizing: border-box;
     padding: 0;
     margin: 0;

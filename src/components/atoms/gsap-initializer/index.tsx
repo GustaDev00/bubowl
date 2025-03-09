@@ -1,4 +1,6 @@
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Observer } from "gsap/Observer";
@@ -8,7 +10,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 
 export const GSAPInitializer = (): null => {
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, Observer, ScrollToPlugin, Draggable, TextPlugin);
+    gsap.registerPlugin(ScrollTrigger, Observer, ScrollToPlugin, Draggable, TextPlugin, useGSAP);
   }, []);
 
   return null;

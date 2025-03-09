@@ -1,3 +1,3 @@
-import { hankenGrotesk } from "./_hanken";
+import { poppins } from "./_poppins";
 
-export const fontNames = `${hankenGrotesk.variable}`;
+export const fontNames = `${poppins.variable}`;

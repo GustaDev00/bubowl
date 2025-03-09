@@ -11,6 +11,8 @@ import { GSAPInitializer } from "@/components/atoms/gsap-initializer";
 import { Cursor } from "@/components/atoms/cursor";
 import { SmoothScroll } from "@/components/atoms/smooth-scroll";
 import { LanguageProvider } from "@/config/contexts/language";
+import { Header } from "@/components/organisms/header";
+import { Footer } from "@/components/organisms/footer";
 
 const RootLayout = ({
   children,
@@ -29,11 +31,13 @@ const RootLayout = ({
             <ThemeProvider theme={theme}>
               <GlobalStyles />
               <GSAPInitializer />
+              <Header />
               <main>
                 <Suspense>
                   <Cursor>{children}</Cursor>
                 </Suspense>
               </main>
+              <Footer />
             </ThemeProvider>
           </LanguageProvider>
         </StyledComponentsRegistry>
