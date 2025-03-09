@@ -10,6 +10,7 @@ import { GlobalStyles } from "@/config/styles/global";
 import { GSAPInitializer } from "@/components/atoms/gsap-initializer";
 import { Cursor } from "@/components/atoms/cursor";
 import { SmoothScroll } from "@/components/atoms/smooth-scroll";
+import { LanguageProvider } from "@/config/contexts/language";
 
 const RootLayout = ({
   children,
@@ -17,22 +18,24 @@ const RootLayout = ({
   children: ReactNode;
 }>): ReactNode => {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH} />
       </head>
 
       <body className={fontNames}>
         <StyledComponentsRegistry>
-          <ThemeProvider theme={theme}>
-            <GlobalStyles />
-            <GSAPInitializer />
-            <main>
-              <Suspense>
-                <Cursor>{children}</Cursor>
-              </Suspense>
-            </main>
-          </ThemeProvider>
+          <LanguageProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyles />
+              <GSAPInitializer />
+              <main>
+                <Suspense>
+                  <Cursor>{children}</Cursor>
+                </Suspense>
+              </main>
+            </ThemeProvider>
+          </LanguageProvider>
         </StyledComponentsRegistry>
         <SmoothScroll />
       </body>

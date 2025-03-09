@@ -3,8 +3,15 @@ import { type ReactNode } from "react";
 import { HomeTemplate } from "@/templates/home";
 
 export const metadata: Metadata = {
-  title: "Fiber web - Creative Webseiten",
-  description: "Creative Webseiten Effektives Marketing Smarte KI Lösungen",
+  title: "Bubowl - Construção de Websites criativos e eficazes",
+  description: "Construção de Websites criativos e eficazes",
+  robots: "index, follow",
+  openGraph: {
+    title: "Bubowl - Construção de Websites criativos e eficazes",
+    description: "Construção de Websites criativos e eficazes",
+    type: "website",
+    url: "https://bubowl.com.br",
+  },
 };
 
 const Home = (): ReactNode => {
