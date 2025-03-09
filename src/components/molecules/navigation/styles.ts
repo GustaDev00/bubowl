@@ -7,38 +7,68 @@ export const Line = styled.div`
   width: 35px;
   height: 3px;
   background: #fff;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, z-index 0.4s ease;
+
+  &:first-child {
+    clip-path: inset(0% 0% 0% 100%);
+  }
+
+  &:nth-of-type(2) {
+    clip-path: inset(0 100% 0 0);
+  }
+`;
+
+export const Circle = styled.div`
+  opacity: 0;
+  position: absolute;
+  right: 8px;
+  top: 19px;
+  content: "";
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5119;
+  transition: width 0.4s ease, height 0.4s ease, right 0.4s ease, top 0.4s ease, z-index 0.4s ease;
+  box-shadow: 0px 0px 10px rgba(255, 81, 25, 0.7);
+  z-index: 2;
 `;
 
 export const Menu = styled.button`
+  position: relative;
   cursor: pointer;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 3rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.7rem;
+  gap: 8px;
   transition: background 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
 
   &:hover {
+    ${Circle} {
+      width: 90px;
+      height: 80px;
+      right: -20px;
+      top: -2px;
+      z-index: 0;
+    }
+
     ${Line} {
+      z-index: 2;
+
       &:first-child {
-        transform: translateX(0.3rem);
+        transform: translateX(4px);
       }
 
       &:last-child {
-        transform: translateX(-0.3rem);
+        transform: translateX(-4px);
       }
     }
   }
-
-  ${mediaMaxWidth("mobile")`
-    width: 4rem;
-    height: 4rem;
-    gap: 0.5rem;
-  `}
 `;
 
 export const Modal = styled.div`

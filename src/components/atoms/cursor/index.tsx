@@ -5,73 +5,114 @@ import * as S from "./styles";
 
 interface CursorProps {
   children: ReactNode;
+  smoothFactor?: number;
+  refreshRate?: number;
+  cursorText?: string;
 }
 
-export const Cursor: FC<CursorProps> = ({ children }) => {
+export const Cursor: FC<CursorProps> = ({
+  children,
+  smoothFactor = 9,
+  refreshRate = 0.016,
+  cursorText = "Mehr",
+}) => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [linkType, setLinkType] = useState<string | null>(null);
 
-  const handleMouseEnter = useCallback((event: MouseEvent) => {
+  // Event handler para delegação de eventos
+  const handleMouseInteraction = useCallback((event: MouseEvent) => {
     const target = event.target as HTMLElement;
-    if (target.tagName === "A" || target.tagName === "BUTTON") {
-      setLinkType("hover");
-    } else if (target.tagName === "DIV") {
-      setLinkType(target.getAttribute("data-fs-link"));
+
+    if (event.type === "mouseenter" || event.type === "mouseover") {
+      if (target.tagName === "A" || target.tagName === "BUTTON") {
+        setLinkType("hover");
+      } else if (target.tagName === "DIV" && target.hasAttribute("data-fs-link")) {
+        setLinkType(target.getAttribute("data-fs-link"));
+      }
+    } else if (event.type === "mouseleave" || event.type === "mouseout") {
+      setLinkType(null);
     }
   }, []);
 
-  const handleMouseLeave = useCallback(() => {
-    setLinkType(null);
-  }, []);
-
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      let posX = 0,
-        posY = 0;
-      let mouseX = 0,
-        mouseY = 0;
+    let animationInstance: gsap.core.Tween;
 
-      gsap.to(
-        {},
-        {
-          duration: 0.016,
-          repeat: -1,
-          onRepeat: () => {
-            posX += (mouseX - posX) / 9;
-            posY += (mouseY - posY) / 9;
+    // Variáveis para a posição do cursor
+    let posX = 0,
+      posY = 0;
+    let mouseX = 0,
+      mouseY = 0;
+
+    // Event handlers
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    // Event delegation
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        (target.tagName === "DIV" && target.hasAttribute("data-fs-link"))
+      ) {
+        handleMouseInteraction(e);
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        (target.tagName === "DIV" && target.hasAttribute("data-fs-link"))
+      ) {
+        handleMouseInteraction(e);
+      }
+    };
+
+    // eslint-disable-next-line prefer-const
+    animationInstance = gsap.to(
+      {},
+      {
+        duration: refreshRate,
+        repeat: -1,
+        onRepeat: () => {
+          posX += (mouseX - posX) / smoothFactor;
+          posY += (mouseY - posY) / smoothFactor;
+
+          if (cursorRef.current) {
             gsap.set(cursorRef.current, {
               css: {
                 left: posX,
                 top: posY,
               },
             });
-          },
+          }
         },
-      );
+      },
+    );
 
-      const interactiveElements = document.querySelectorAll<HTMLElement>("a, div, button");
-
-      interactiveElements.forEach((element: Element) => {
-        element.addEventListener("mouseenter", handleMouseEnter as EventListener);
-        element.addEventListener("mouseleave", handleMouseLeave);
-      });
-
-      document.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-    });
+    // Adiciona event listeners usando delegação de eventos
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
-      ctx.kill();
+      // Limpa animação e event listeners
+      animationInstance.kill();
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, [handleMouseEnter, handleMouseLeave]);
+  }, [handleMouseInteraction, smoothFactor, refreshRate]);
 
   return (
     <>
       {children}
       <S.Cursor ref={cursorRef} $type={linkType}>
-        <S.Text>Mehr</S.Text>
+        <S.Text>{cursorText}</S.Text>
       </S.Cursor>
     </>
   );

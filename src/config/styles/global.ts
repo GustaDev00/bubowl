@@ -2,11 +2,21 @@ import { createGlobalStyle } from "styled-components";
 import { theme } from "./theme";
 import { mediaMaxWidth, viewportsBase } from "@/config/utils/media-query";
 
-const { desktop1024, isMobileOrTabletVertical, desktop1920 } = viewportsBase;
+const { desktop1024, isMobileOrTabletVertical } = viewportsBase;
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --full-height: 100vh;
+  }
+
+  @supports(height: 100dvh) {
+    :root {
+      --full-height: 100dvh;
+    }
+  }
+  
   * {
-    font-family: var(--poppins);
+    font-family: var(--inter);
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -26,7 +36,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: calc(100vw / ${desktop1920.width} * 10);
+    font-size: calc(100vw / ${1600} * 10);
     text-size-adjust: none;
     -moz-text-size-adjust: none;
     -ms-text-size-adjust: none;

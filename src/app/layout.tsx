@@ -10,9 +10,10 @@ import { GlobalStyles } from "@/config/styles/global";
 import { GSAPInitializer } from "@/components/atoms/gsap-initializer";
 import { Cursor } from "@/components/atoms/cursor";
 import { SmoothScroll } from "@/components/atoms/smooth-scroll";
-import { LanguageProvider } from "@/config/contexts/language";
 import { Header } from "@/components/organisms/header";
 import { Footer } from "@/components/organisms/footer";
+import { AppProvider } from "@/config/contexts";
+import { Loading } from "@/components/atoms/loading";
 
 const RootLayout = ({
   children,
@@ -27,11 +28,12 @@ const RootLayout = ({
 
       <body className={fontNames}>
         <StyledComponentsRegistry>
-          <LanguageProvider>
+          <AppProvider>
             <ThemeProvider theme={theme}>
               <GlobalStyles />
               <GSAPInitializer />
               <Header />
+              <Loading />
               <main>
                 <Suspense>
                   <Cursor>{children}</Cursor>
@@ -39,7 +41,7 @@ const RootLayout = ({
               </main>
               <Footer />
             </ThemeProvider>
-          </LanguageProvider>
+          </AppProvider>
         </StyledComponentsRegistry>
         <SmoothScroll />
       </body>

@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import * as S from "./styles";
+import { useLoaderContext } from "@/config/contexts/loader";
 
 export const Loading = () => {
   const [loading, setLoading] = useState(true);
+  const { onChangeLoading } = useLoaderContext();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev === 50) {
+        if (prev === 99) {
           clearInterval(interval);
           setLoading(false);
-          return 0;
+          onChangeLoading(true);
         }
         return prev + 1;
       });

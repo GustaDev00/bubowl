@@ -5,18 +5,19 @@ import { useCallback, useState } from "react";
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
-  const { sectionRef } = useAnimation();
-  const { navigation, social_share } = useLanguageContext().data;
+  const { menuRef } = useAnimation();
+  const { navigation } = useLanguageContext().data;
 
   const handleClick = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
 
   return (
-    <S.Navigation ref={sectionRef}>
-      <S.Menu onClick={handleClick} data-fs-link="hover">
-        <S.Line />
-        <S.Line />
+    <S.Navigation>
+      <S.Menu onClick={handleClick} ref={menuRef} data-fs-link="hover">
+        <S.Line data-fs-gsap="line" data-fs-link="hover" />
+        <S.Line data-fs-gsap="line" data-fs-link="hover" />
+        <S.Circle data-fs-gsap="circle" data-fs-link="hover" />
       </S.Menu>
 
       <S.Overlay $open={open}>
@@ -28,19 +29,25 @@ export const Navigation = () => {
             </S.HeaderModal>
             <S.MainModal>
               <S.List>
-                {navigation.content.map(({ title, href }) => (
-                  <S.Item key={title} href={href} data-fs-link="hover">
-                    {title}
-                  </S.Item>
-                ))}
+                {navigation.content.map((item: { href: string; title: string }) => {
+                  if (item.href && item.title) {
+                    const { title, href } = item;
+
+                    return (
+                      <S.Item key={title} href={href} data-fs-link="hover">
+                        {title}
+                      </S.Item>
+                    );
+                  }
+                  return null;
+                })}
               </S.List>
             </S.MainModal>
             <S.FooterModal>
-              {social_share.content.map(({ title, link }) => (
-                <S.Social key={title} href={link} target="_blank" data-fs-link="hover">
-                  {/* <Icon /> */}
-                </S.Social>
-              ))}
+              a
+              {/* {social_share.content.map(({ title, link }) => (
+                <S.Social key={title} href={link} target="_blank" data-fs-link="hover"></S.Social>
+              ))} */}
             </S.FooterModal>
           </S.WrapperModal>
         </S.Modal>

@@ -115,7 +115,7 @@ export default {
       },
     },
     components: {
-      homne: {
+      home: {
         header: {
           content: {
             text: (
@@ -753,7 +753,7 @@ export default {
       },
     },
     components: {
-      homne: {
+      home: {
         header: {
           content: {
             text: (
@@ -1389,7 +1389,7 @@ export default {
       },
     },
     components: {
-      homne: {
+      home: {
         header: {
           content: {
             text: (

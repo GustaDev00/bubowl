@@ -6,7 +6,7 @@ export const Loading = styled.div<{ $isActive: boolean }>`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: ${({ theme }) => theme.antiFlashWhite};
+  background: #ff5119;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,15 +18,16 @@ export const Loading = styled.div<{ $isActive: boolean }>`
 
 export const Container = styled.div`
   position: relative;
-  border: 0.3rem solid ${({ theme }) => theme.rosewood};
+  border: 0.3rem solid #000;
   padding: 5rem;
   border-radius: 50%;
 `;
 
 export const ProgressMensage = styled.p`
   position: absolute;
+  color: #000;
   left: 50%;
-  margin-top: 8rem;
+  margin-top: -1rem;
   transform: translateX(-50%);
   font-size: 1.8rem;
   text-align: center;
